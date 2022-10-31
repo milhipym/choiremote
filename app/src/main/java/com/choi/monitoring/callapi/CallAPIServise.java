@@ -106,10 +106,7 @@ public class CallAPIServise {
             String chartLocation = resultObjData.getString("chartLocation");
             Log.d("YYYM", "resultObjDataLocation: " + chartLocation);
 
-            //if (chartLocation.equals("FOURTH")) {
-            //}else {
-                dataListArray = resultObjData.getJSONArray("dataList");
-            //}
+            dataListArray = resultObjData.getJSONArray("dataList");
 
             //#3.추출키 셋 및 다음 쿼리진행
             if (chartLocation.equals("FIRST"))
