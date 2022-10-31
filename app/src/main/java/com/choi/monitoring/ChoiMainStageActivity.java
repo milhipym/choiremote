@@ -15,6 +15,7 @@ import com.choi.monitoring.chart.BarChartImple;
 import com.choi.monitoring.chart.LineChartImple;
 import com.choi.monitoring.chart.PieChartImple;
 import com.choi.monitoring.chart.PieChartImpleSec;
+import com.choi.monitoring.chart.PieChartImpleThird;
 import com.github.mikephil.charting.charts.BarChart;
 
 import org.json.JSONArray;
@@ -72,11 +73,11 @@ public class ChoiMainStageActivity extends AppCompatActivity {
                 PieChartImpleSec pieChartImpleSec = new PieChartImpleSec();
                 pieChartImpleSec.setInfo(this, this.getApplicationContext(), dataArray, dataSubArray);
             }
-//            else if (chartLocation.equals("FIFTH"))
-//            {
-//                BarChartImple barChartImple
-//                        = new BarChartImple(ChoiMainStageActivity.this, dataArray);
-//            }
+            else if (chartLocation.equals("FIFTH"))
+            {
+                PieChartImpleThird pieChartImpleThird = new PieChartImpleThird();
+                pieChartImpleThird.setInfo(this, this.getApplicationContext(), dataArray);
+            }
         }
 
     }

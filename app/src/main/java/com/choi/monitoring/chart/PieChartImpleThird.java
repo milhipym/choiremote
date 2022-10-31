@@ -4,13 +4,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.util.Log;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.choi.monitoring.ChoiMainStageActivity;
 import com.choi.monitoring.R;
 import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
@@ -21,24 +19,21 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
-public class PieChartImple {
+public class PieChartImpleThird {
     public Activity mActivity;
     public JSONArray mJsonArrayData;
     public PieChart pieChart;
     public ArrayList<Integer> circleColors;
     public PieDataSet pieDataSet;
-    public TextView graph_three_number, graph_two_three_fail_ecs, graph_two_three_fail_edms;
+    public TextView graph_two_five_iban_number, graph_two_five_kakao_number;
 
     public void setInfo(ChoiMainStageActivity activity, Context applicationContext, JSONArray jsonArrayData) {
         this.mActivity = activity;
         this.mJsonArrayData = jsonArrayData;
 
-        graph_three_number       = mActivity.findViewById(R.id.graph_three_number);
-        graph_two_three_fail_ecs = mActivity.findViewById(R.id.graph_two_three_fail_ecs);
-        graph_two_three_fail_edms= mActivity.findViewById(R.id.graph_two_three_fail_edms);
+        graph_two_five_iban_number  = mActivity.findViewById(R.id.graph_two_five_iban_number);
+        graph_two_five_kakao_number = mActivity.findViewById(R.id.graph_two_five_kakao_number);
         setWholeGraphStyle();
     }
     /*
@@ -46,8 +41,7 @@ public class PieChartImple {
      * */
     public void setWholeGraphStyle()
     {
-
-        pieChart = mActivity.findViewById(R.id.graph_three_graph);
+        pieChart = mActivity.findViewById(R.id.graph_five_graph);
         pieChart.getLegend().setEnabled(false);
         pieChart.setUsePercentValues(true);
         pieChart.setCenterText("단위 %");
@@ -73,7 +67,7 @@ public class PieChartImple {
         circleColors = new ArrayList<>();
         circleColors.add(Color.parseColor("#9370DB")); //보라
         //circleColors.add(Color.parseColor("#AFEEEE")); //하늘
-        circleColors.add(Color.parseColor("#FF0000")); //빨강
+        circleColors.add(Color.parseColor("#FF6600")); //빨강
 
         setLineEntry();
     }
@@ -94,24 +88,22 @@ public class PieChartImple {
             Log.d("YYYM", "type: "+type+" , floatValue:"+circleData.get(type).floatValue());
             entries.add(new PieEntry(circleData.get(type).floatValue(), type));
         }*/
-        String failCnt = "";
-        String requestCnt = "0";
-        String completeCnt = "0";
+        String ilbanCnt = "0";
+        String kakaoCnt = "0";
         ArrayList<PieEntry> entries = new ArrayList<>();
 
         try {
             for (int i=0; i<mJsonArrayData.length(); i++){
                 JSONObject jsonObject = mJsonArrayData.getJSONObject(i);
-                Log.d("YYYM", "stsCnt: "+jsonObject.getString("stsCnt"));
-                Log.d("YYYM", "stsNm: "+jsonObject.getString("stsNm"));
-                Log.d("YYYM", "stsCd: "+jsonObject.getString("stsCd"));
-                String dataCnt  = jsonObject.getString("stsCnt");
-                String dataNM = jsonObject.getString("stsNm");
-                String dataCd = jsonObject.getString("stsCd");
+                Log.d("YYYM", "drvCnt: "+jsonObject.getString("drvCnt"));
+                Log.d("YYYM", "drvNm: "+jsonObject.getString("drvNm"));
+                String dataCnt  = jsonObject.getString("drvCnt");
+                String dataNM = jsonObject.getString("drvNm");
 
-                if (dataCd.equals("07")) { completeCnt = dataCnt;}
-                else if (dataCd.equals("05")) {requestCnt=dataCnt;}
+                if (dataNM.equals("일반대리")) { ilbanCnt = dataCnt;}
+                else if (dataNM.equals("카카오대리")) {kakaoCnt=dataCnt;}
 
+                dataCnt = dataCnt.replace(",", "");
                 Float dataCntF  = Float.valueOf(dataCnt);
                 entries.add(new PieEntry(dataCntF, dataNM));
             }
@@ -119,19 +111,8 @@ public class PieChartImple {
             e.printStackTrace();
         }
 
-        //setUI
-        Log.e("YYYM", "setLineEntry: "+Integer.parseInt(requestCnt));
-        Log.e("YYYM", "setLineEntry: "+Integer.parseInt(completeCnt));
-        int failCntA = Integer.parseInt(requestCnt);
-        Log.d("YYYM", "failCntA: "+failCntA);
-        int failCntB = Integer.parseInt(completeCnt);
-        int failCntInt = failCntA - failCntB;
-        Log.d("YYYM", "failCntInt: "+failCntInt);
-        failCnt = Integer.toString(failCntInt);
-
-        graph_three_number.setText(failCnt);
-        graph_two_three_fail_ecs.setText("완료건 "+Integer.toString(failCntB)+"건");
-        graph_two_three_fail_edms.setText("요청건 "+Integer.toString(failCntA)+"건");
+        graph_two_five_iban_number.setText(ilbanCnt);
+        graph_two_five_kakao_number.setText(kakaoCnt);
 
         String title = ""; //장자일 건수
         pieDataSet = new PieDataSet(entries, title);

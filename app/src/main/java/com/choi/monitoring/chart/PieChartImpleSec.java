@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.choi.monitoring.ChoiMainStageActivity;
 import com.choi.monitoring.R;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.MarkerView;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
@@ -19,6 +20,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 public class PieChartImpleSec {
     public Activity mActivity;
@@ -82,7 +86,7 @@ public class PieChartImpleSec {
         circleColors.add(Color.parseColor("#C51162")); //하늘
         circleColors.add(Color.parseColor("#7986CB")); //빨강
         circleColors.add(Color.parseColor("#7E57C2")); //하늘
-        circleColors.add(Color.parseColor("#D50000")); //빨강
+        circleColors.add(Color.parseColor("#CC00CC")); //빨강
 
         setLineEntry();
     }
@@ -110,62 +114,18 @@ public class PieChartImpleSec {
                 Float dataCntF  = Float.valueOf(dataCnt);
                 entries.add(new PieEntry(dataCntF, dataNM));
             }
-            //TOP3 데이터 뽑기
-            String top1Cnt, top1Cd, top1Nm = "";
-            String top2Cnt, top2Cd, top2Nm = "";
-            String top3Cnt, top3Cd, top3Nm = "";
-            for (int j=0; j<mJsonArraySubData.length(); j++){
-                JSONObject jsonObject = mJsonArraySubData.getJSONObject(j);
-                if (j == 0)
-                {
-                    Log.d("YYYM", "top1Cnt: " + jsonObject.getString("top1Cnt"));
-                    Log.d("YYYM", "top1Cd: " + jsonObject.getString("top1Cd"));
-                    Log.d("YYYM", "top1Nm: " + jsonObject.getString("top1Nm"));
-                    top1Cnt = jsonObject.getString("top1Cnt");
-                    top1Cd = jsonObject.getString("top1Cd");
-                    top1Nm = jsonObject.getString("top1Nm");
-                }
-                else if (j == 1)
-                {
-                    Log.d("YYYM", "top2Cnt: " + jsonObject.getString("top2Cnt"));
-                    Log.d("YYYM", "top2Cd: " + jsonObject.getString("top2Cd"));
-                    Log.d("YYYM", "top2Nm: " + jsonObject.getString("top2Nm"));
+            sortJsonArrayData(mJsonArrayData);
 
-                    top2Cnt = jsonObject.getString("top2Cnt");
-                    top2Cd = jsonObject.getString("top2Cd");
-                    top2Nm = jsonObject.getString("top2Nm");
-                }
-                else if (j == 2)
-                {
-                    Log.d("YYYM", "top3Cnt: " + jsonObject.getString("top3Cnt"));
-                    Log.d("YYYM", "top3Cd: " + jsonObject.getString("top3Cd"));
-                    Log.d("YYYM", "top3Nm: " + jsonObject.getString("top3Nm"));
-
-                    top3Cnt = jsonObject.getString("top3Cnt");
-                    top3Cd = jsonObject.getString("top3Cd");
-                    top3Nm = jsonObject.getString("top3Nm");
-                }
-            }
         }catch (JSONException e) {
             e.printStackTrace();
         }
-
-        //setUI
-        Log.e("YYYM", "setLineEntry: "+Integer.parseInt(requestCnt));
-        Log.e("YYYM", "setLineEntry: "+Integer.parseInt(completeCnt));
-        graph_four_lit_title.setText("일반대리");
-        graph_four_mti_title.setText("카카오대리");
-        graph_four_gni_title.setText("UBI");
-        graph_four_lit_number.setText("411");
-        graph_four_mti_number.setText("322");
-        graph_four_gni_number.setText("233");
 
         String title = ""; //장자일 건수
         pieDataSet = new PieDataSet(entries, title);
         pieDataSet.setColors(circleColors);
         //pieDataSet.setXValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE); //X축 가이드라인
         pieDataSet.setYValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);   //Y축 가이드라인
-        pieDataSet.setValueTextSize(3); //Y값 사이즈
+        pieDataSet.setValueTextSize(6); //Y값 사이즈
         //pieDataSet.setValueLinePart1OffsetPercentage(50f); //먼지모르겟음....
         pieDataSet.setValueLinePart1Length(0.3f); // 가이드라인 길이 설정
         pieDataSet.setSliceSpace(3f); //원형 파티션 간격
@@ -179,11 +139,69 @@ public class PieChartImpleSec {
         setSyncDataAndGraph();
     }
 
+    private void sortJsonArrayData(JSONArray mJsonArrayData) {
+        JSONArray sortedJsonArray = new JSONArray();
+        List<JSONObject> jsonValues = new ArrayList<JSONObject>();
+        try {
+            for (int i = 0; i < mJsonArrayData.length(); i++) {                   //동적 배열 size(), 정적 배열 length()
+                jsonValues.add(mJsonArrayData.getJSONObject(i));
+                System.out.println(i+""+mJsonArrayData.getJSONObject(i));
+            }
+            Collections.sort(jsonValues, new Comparator<JSONObject>() {
+                private static final String KEY_NUM = "contCnt";             //JSON key 변수 선언 생성
+                @Override
+                public int compare(JSONObject b, JSONObject a) {
+                    //int valA = 0;
+                    //int valB = 0;
+                    //값이 문자열 일 때
+                    String valA = "";
+                    String valB = "";
+                    try {
+                        //valA = Integer.parseInt(a.getString(KEY_NUM));
+                        //valB = Integer.parseInt(b.getString(KEY_NUM));
+
+                        //값이 문자열 일 때
+                        valA = (String) a.get(KEY_NUM);
+                        valB = (String) b.get(KEY_NUM);
+                    }
+                    catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    //return Integer.compare(valA,valB);
+                    //값이 문자열 일 때
+                    return valA.compareTo(valB);
+                }
+            });
+            for (int i = 0; i < mJsonArrayData.length(); i++) {
+                sortedJsonArray.put(jsonValues.get(i));
+            }
+
+            //setUI
+            mJsonArrayData.getJSONObject(0).getString("contNm");
+            graph_four_lit_title.setText(mJsonArrayData.getJSONObject(0).getString("contNm").substring(0,4));
+            graph_four_mti_title.setText(mJsonArrayData.getJSONObject(1).getString("contNm").substring(0,4));
+            graph_four_gni_title.setText(mJsonArrayData.getJSONObject(2).getString("contNm").substring(0,3));
+            graph_four_lit_number.setText(mJsonArrayData.getJSONObject(0).getString("contCnt"));
+            graph_four_mti_number.setText(mJsonArrayData.getJSONObject(1).getString("contCnt"));
+            graph_four_gni_number.setText(mJsonArrayData.getJSONObject(2).getString("contCnt"));
+        }catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     private void setSyncDataAndGraph() {
         PieData pieData = new PieData(pieDataSet);
         pieData.setDrawValues(true);
 
         pieChart.setData(pieData);
+        pieChart.setEntryLabelTextSize(5);
+        pieChart.setEntryLabelColor(Color.parseColor("#330000"));
+
+        MarkerView markerView = new MyMarkerView(mActivity, R.layout.markview);
+        markerView.setChartView(pieChart);
+        pieChart.setMarker(markerView);
+
         pieChart.invalidate();
     }
 
