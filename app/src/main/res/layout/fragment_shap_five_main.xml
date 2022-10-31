@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="20dp"
+    android:background="@drawable/backimg">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guide_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.2"/>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guide_menu_slide"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.25"/>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guide_main_graph"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5"/>
+
+    <TextView
+        android:id="@+id/main_title"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:text="고객동의 시스템"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:layout_marginLeft="20dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/guide_top" />
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/graph_one"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        app:cardCornerRadius="20dp"
+        android:outlineAmbientShadowColor="#00FF00"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/guide_main_graph"
+        app:layout_constraintTop_toTopOf="@+id/guide_menu_slide">
+
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/graph_one_ly"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guide_main_graph"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/graph_sum_ly"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/graph_two_ly"
+                android:layout_width="0dp"
+                android:layout_height="250dp"
+                app:cardCornerRadius="20dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="7dp"
+                android:orientation="vertical"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/graph_three_ly"
+                app:layout_constraintTop_toTopOf="@+id/graph_sum_ly" >
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+                    <TextView
+                        android:id="@+id/graph_two_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:text="시간당 인증 완료건수"
+                        android:textStyle="bold"
+                        android:textSize="10sp"
+                        android:textColor="#D79AE8"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="15dp"
+                        app:layout_constraintVertical_weight="0.1"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                    <TextView
+                        android:id="@+id/graph_two_number"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:gravity="center_vertical"
+                        android:text="375"
+                        android:textStyle="bold"
+                        android:textSize="35sp"
+                        android:textColor="#B707E8"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="15dp"
+                        app:layout_constraintVertical_weight="0.2"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toLeftOf="@+id/graph_two_number_time"
+                        app:layout_constraintTop_toBottomOf="@+id/graph_two_title"
+                        app:layout_constraintBottom_toTopOf="@+id/graph_two_graph" />
+
+                    <TextView
+                        android:id="@+id/graph_two_number_time"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:text="10시"
+                        android:textSize="10sp"
+                        android:textColor="#B707E8"
+                        android:gravity="right|center"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginRight="15dp"
+                        app:layout_constraintVertical_weight="0.2"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintLeft_toRightOf="@+id/graph_two_number"
+                        app:layout_constraintTop_toBottomOf="@+id/graph_two_title"
+                        app:layout_constraintBottom_toTopOf="@+id/graph_two_graph"/>
+
+                    <com.github.mikephil.charting.charts.LineChart
+                        android:id="@+id/graph_two_graph"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginTop="5dp"
+                        app:layout_constraintVertical_weight="0.7"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/graph_two_number"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/graph_three_ly"
+                android:layout_width="0dp"
+                android:layout_height="250dp"
+                app:cardCornerRadius="20dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginBottom="7dp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toRightOf="@+id/graph_two_ly"
+                app:layout_constraintTop_toTopOf="@+id/graph_sum_ly">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+                    <TextView
+                        android:id="@+id/graph_three_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:text="인증 실패건수"
+                        android:textStyle="bold"
+                        android:textSize="10sp"
+                        android:textColor="#D79AE8"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="15dp"
+                        app:layout_constraintVertical_weight="0.1"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                    <TextView
+                        android:id="@+id/graph_three_number"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:gravity="center_vertical"
+                        android:text="26"
+                        android:textStyle="bold"
+                        android:textSize="35sp"
+                        android:textColor="#B707E8"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="15dp"
+                        app:layout_constraintVertical_weight="0.2"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toLeftOf="@+id/graph_two_three_fail_ecs"
+                        app:layout_constraintTop_toBottomOf="@+id/graph_three_title"
+                        app:layout_constraintBottom_toTopOf="@+id/graph_three_graph" />
+                    <TextView
+                        android:id="@+id/graph_two_three_fail_ecs"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:text="완료건 3건"
+                        android:textSize="10sp"
+                        android:textColor="#B707E8"
+                        android:gravity="right"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginRight="15dp"
+                        app:layout_constraintVertical_weight="0.2"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintLeft_toRightOf="@+id/graph_three_number"
+                        app:layout_constraintTop_toBottomOf="@+id/graph_three_title"
+                        app:layout_constraintBottom_toTopOf="@+id/graph_two_three_fail_edms"/>
+                    <TextView
+                        android:id="@+id/graph_two_three_fail_edms"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:text="요청건 23건"
+                        android:textSize="10sp"
+                        android:textColor="#B707E8"
+                        android:gravity="right"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginRight="15dp"
+                        app:layout_constraintVertical_weight="0.2"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintLeft_toRightOf="@+id/graph_three_number"
+                        app:layout_constraintTop_toBottomOf="@+id/graph_two_three_fail_ecs"
+                        app:layout_constraintBottom_toTopOf="@+id/graph_three_graph"/>
+                    <com.github.mikephil.charting.charts.PieChart
+                        android:id="@+id/graph_three_graph"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginTop="5dp"
+                        app:layout_constraintVertical_weight="0.65"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/graph_three_number"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/graph_four_ly"
+                android:layout_width="0dp"
+                android:layout_height="250dp"
+                app:cardCornerRadius="20dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginBottom="3dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/graph_five_ly"
+                app:layout_constraintTop_toBottomOf="@+id/graph_two_ly">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+                    <TextView
+                        android:id="@+id/graph_four_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:text="업무별 사용현황"
+                        android:textStyle="bold"
+                        android:textSize="10sp"
+                        android:textColor="#D79AE8"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="15dp"
+                        app:layout_constraintVertical_weight="0.1"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/graph_four_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        app:layout_constraintVertical_weight="0.2"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/graph_four_title"
+                        app:layout_constraintBottom_toTopOf="@+id/graph_four_graph">
+                        <TextView
+                            android:id="@+id/graph_four_lit_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="장기"
+                            android:textSize="10sp"
+                            android:textColor="#B707E8"
+                            app:layout_constraintLeft_toLeftOf="@+id/graph_four_lit_number"
+                            app:layout_constraintRight_toRightOf="@+id/graph_four_lit_number"
+                            app:layout_constraintTop_toBottomOf="@+id/graph_four_container"
+                            app:layout_constraintBottom_toTopOf="@+id/graph_four_lit_number" />
+                        <TextView
+                            android:id="@+id/graph_four_lit_number"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="18,625"
+                            android:textStyle="bold"
+                            android:textSize="15sp"
+                            android:textColor="#B707E8"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toLeftOf="@+id/graph_four_mti_number"
+                            app:layout_constraintTop_toBottomOf="@+id/graph_four_lit_title"
+                            app:layout_constraintBottom_toTopOf="parent" />
+                        <TextView
+                            android:id="@+id/graph_four_mti_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="자동차"
+                            android:textSize="10sp"
+                            android:textColor="#DA86F1"
+                            app:layout_constraintLeft_toLeftOf="@+id/graph_four_mti_number"
+                            app:layout_constraintRight_toRightOf="@+id/graph_four_mti_number"
+                            app:layout_constraintTop_toBottomOf="@+id/graph_four_container"
+                            app:layout_constraintBottom_toTopOf="@+id/graph_four_mti_number" />
+                        <TextView
+                            android:id="@+id/graph_four_mti_number"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:text="6,789"
+                            android:textStyle="bold"
+                            android:textSize="15sp"
+                            android:textColor="#DA86F1"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            app:layout_constraintRight_toRightOf="@+id/graph_four_gni_number"
+                            app:layout_constraintLeft_toRightOf="@+id/graph_four_lit_number"
+                            app:layout_constraintTop_toBottomOf="@+id/graph_four_mti_title"
+                            app:layout_constraintBottom_toTopOf="parent" />
+                        <TextView
+                            android:id="@+id/graph_four_gni_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="일반"
+                            android:textSize="10sp"
+                            android:textColor="#B582C3"
+                            app:layout_constraintLeft_toLeftOf="@+id/graph_four_gni_number"
+                            app:layout_constraintRight_toRightOf="@+id/graph_four_gni_number"
+                            app:layout_constraintTop_toBottomOf="@+id/graph_four_container"
+                            app:layout_constraintBottom_toTopOf="@+id/graph_four_gni_number" />
+                        <TextView
+                            android:id="@+id/graph_four_gni_number"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:text="38"
+                            android:textStyle="bold"
+                            android:textSize="15sp"
+                            android:textColor="#B582C3"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintLeft_toRightOf="@+id/graph_four_mti_number"
+                            app:layout_constraintTop_toBottomOf="@+id/graph_four_gni_title"
+                            app:layout_constraintBottom_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    <com.github.mikephil.charting.charts.PieChart
+                        android:id="@+id/graph_four_graph"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginTop="5dp"
+                        app:layout_constraintVertical_weight="0.7"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/graph_four_container"
+                        app:layout_constraintBottom_toBottomOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/graph_five_ly"
+                android:layout_width="0dp"
+                android:layout_height="250dp"
+                app:cardCornerRadius="20dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginBottom="3dp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toRightOf="@+id/graph_four_ly"
+                app:layout_constraintTop_toBottomOf="@+id/graph_three_ly"
+                >
+
+
+            </androidx.cardview.widget.CardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
