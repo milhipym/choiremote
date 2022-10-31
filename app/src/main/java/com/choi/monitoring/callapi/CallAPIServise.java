@@ -125,8 +125,8 @@ public class CallAPIServise {
             { param_1 = "countCnt"; param_2="contNm"; callApi(retrofit, FIFTH);
                 dataSubArray = resultObjData.getJSONArray("top3Data");
             mActivity.ResponseGetData(chartLocation, dataListArray, dataSubArray);}
-/*            else if (chartLocation.equals("FIFTH"))
-            { param_1 = "drvCnt"; param_2="drvNm"; mMainActivity.ResponseGetData(chartLocation, dataArray);}*/
+            else if (chartLocation.equals("FIFTH"))
+            { param_1 = "drvCnt"; param_2="drvNm"; mActivity.ResponseGetData(chartLocation, dataListArray, dataSubArray);}
 
 /*            for (int i=0; i<dataListArray.length()-1; i++){
                 JSONObject jsonObject = dataListArray.getJSONObject(i);
