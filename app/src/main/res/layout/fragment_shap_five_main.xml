@@ -382,10 +382,95 @@
                 android:layout_marginBottom="3dp"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintLeft_toRightOf="@+id/graph_four_ly"
-                app:layout_constraintTop_toBottomOf="@+id/graph_three_ly"
-                >
-
-
+                app:layout_constraintTop_toBottomOf="@+id/graph_three_ly" >
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+                    <TextView
+                        android:id="@+id/graph_five_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:text="대리운전 사용현황"
+                        android:textStyle="bold"
+                        android:textSize="10sp"
+                        android:textColor="#D79AE8"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="15dp"
+                        app:layout_constraintVertical_weight="0.1"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                    <TextView
+                        android:id="@+id/graph_two_five_iban_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:text="일반대리"
+                        android:textSize="10sp"
+                        android:textColor="#B707E8"
+                        android:layout_marginTop="5dp"
+                        android:paddingLeft="15dp"
+                        android:gravity="center"
+                        app:layout_constraintVertical_weight="0.2"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/graph_five_title"
+                        app:layout_constraintBottom_toTopOf="@+id/graph_two_five_kakao_title"/>
+                    <TextView
+                        android:id="@+id/graph_two_five_kakao_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:text="카카오대리"
+                        android:textSize="10sp"
+                        android:textColor="#B707E8"
+                        android:layout_marginTop="5dp"
+                        android:paddingLeft="15dp"
+                        android:gravity="center"
+                        app:layout_constraintVertical_weight="0.2"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/graph_two_five_iban_title"
+                        app:layout_constraintBottom_toTopOf="@+id/graph_five_graph"/>
+                    <TextView
+                        android:id="@+id/graph_two_five_iban_number"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:text="214099"
+                        android:textSize="10sp"
+                        android:textColor="#B707E8"
+                        android:gravity="center|right"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginRight="15dp"
+                        app:layout_constraintVertical_weight="0.2"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintLeft_toRightOf="@+id/graph_two_five_iban_title"
+                        app:layout_constraintTop_toTopOf="@+id/graph_two_five_iban_title"
+                        app:layout_constraintBottom_toBottomOf="@+id/graph_two_five_iban_title"/>
+                    <TextView
+                        android:id="@+id/graph_two_five_kakao_number"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:text="1606925"
+                        android:textSize="10sp"
+                        android:textColor="#B707E8"
+                        android:gravity="center|right"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginRight="15dp"
+                        app:layout_constraintVertical_weight="0.2"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintLeft_toRightOf="@+id/graph_two_five_kakao_title"
+                        app:layout_constraintTop_toTopOf="@+id/graph_two_five_kakao_title"
+                        app:layout_constraintBottom_toBottomOf="@+id/graph_two_five_kakao_title"/>
+                    <com.github.mikephil.charting.charts.PieChart
+                        android:id="@+id/graph_five_graph"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginTop="5dp"
+                        app:layout_constraintVertical_weight="0.65"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/graph_two_five_kakao_title"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
         </androidx.constraintlayout.widget.ConstraintLayout>
 

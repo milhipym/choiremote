@@ -165,7 +165,7 @@ public class PieChartImpleSec {
         pieDataSet.setColors(circleColors);
         //pieDataSet.setXValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE); //X축 가이드라인
         pieDataSet.setYValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);   //Y축 가이드라인
-        pieDataSet.setValueTextSize(6); //Y값 사이즈
+        pieDataSet.setValueTextSize(3); //Y값 사이즈
         //pieDataSet.setValueLinePart1OffsetPercentage(50f); //먼지모르겟음....
         pieDataSet.setValueLinePart1Length(0.3f); // 가이드라인 길이 설정
         pieDataSet.setSliceSpace(3f); //원형 파티션 간격
