@@ -111,8 +111,8 @@ public class PieChartImpleThird {
             e.printStackTrace();
         }
 
-        graph_two_five_iban_number.setText(ilbanCnt);
-        graph_two_five_kakao_number.setText(kakaoCnt);
+        graph_two_five_iban_number.setText(ilbanCnt+" 건");
+        graph_two_five_kakao_number.setText(kakaoCnt+" 건");
 
         String title = ""; //장자일 건수
         pieDataSet = new PieDataSet(entries, title);

@@ -49,37 +49,44 @@ public class ChoiMainStageActivity extends AppCompatActivity {
 
     public void ResponseGetData(String chartLocation, JSONArray dataArray, JSONArray dataSubArray)
     {
-        if (!chartLocation.isEmpty() && !dataArray.isNull(0))
-        {
-            if (chartLocation.equals("FIRST"))
+        try {
+            if (!chartLocation.isEmpty() && !dataArray.isNull(0))
             {
-                BarChartImple barChartImple
-                        = new BarChartImple(ChoiMainStageActivity.this, dataArray);
+                if (chartLocation.equals("FIRST"))
+                {
+                    BarChartImple barChartImple
+                            = new BarChartImple(ChoiMainStageActivity.this, dataArray);
+                }
+                else if (chartLocation.equals("SECOND"))
+                {
+                    LineChartImple lineChartImple
+                            = new LineChartImple();
+                    lineChartImple.setInfo(this, this.getApplicationContext(), dataArray);
+                }
+                else if (chartLocation.equals("THIRD"))
+                {
+                    PieChartImple pieChartImple = new PieChartImple();
+                    pieChartImple.setInfo(this, this.getApplicationContext(), dataArray);
+                }
+                else if (chartLocation.equals("FOURTH"))
+                {
+                    PieChartImpleSec pieChartImpleSec = new PieChartImpleSec();
+                    pieChartImpleSec.setInfo(this, this.getApplicationContext(), dataArray, dataSubArray);
+                }
+                else if (chartLocation.equals("FIFTH"))
+                {
+                    PieChartImpleThird pieChartImpleThird = new PieChartImpleThird();
+                    pieChartImpleThird.setInfo(this, this.getApplicationContext(), dataArray);
+                }
             }
-            else if (chartLocation.equals("SECOND"))
-            {
-                LineChartImple lineChartImple
-                        = new LineChartImple();
-                lineChartImple.setInfo(this, this.getApplicationContext(), dataArray);
-            }
-            else if (chartLocation.equals("THIRD"))
-            {
-                PieChartImple pieChartImple = new PieChartImple();
-                pieChartImple.setInfo(this, this.getApplicationContext(), dataArray);
-
-            }
-            else if (chartLocation.equals("FOURTH"))
-            {
-                PieChartImpleSec pieChartImpleSec = new PieChartImpleSec();
-                pieChartImpleSec.setInfo(this, this.getApplicationContext(), dataArray, dataSubArray);
-            }
-            else if (chartLocation.equals("FIFTH"))
-            {
-                PieChartImpleThird pieChartImpleThird = new PieChartImpleThird();
-                pieChartImpleThird.setInfo(this, this.getApplicationContext(), dataArray);
-            }
+        }catch(Exception e){
+            StackTraceElement[] ste = e.getStackTrace();
+            Log.d("CHOI", "ResponseGetData: getClassName "+ ste[0].getClassName());
+            Log.d("CHOI", "ResponseGetData: getMethodName "+ ste[0].getMethodName());
+            Log.d("CHOI", "ResponseGetData: getLineNumber "+ ste[0].getLineNumber());
+            Log.d("CHOI", "ResponseGetData: getFileName "+ ste[0].getFileName());
+            Log.d("CHOI", "ResponseGetData: getMessage "+ e.getMessage());
         }
-
     }
 
     public void updateUI(String s, String t)

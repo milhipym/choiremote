@@ -145,7 +145,8 @@ public class PieChartImpleSec {
         try {
             for (int i = 0; i < mJsonArrayData.length(); i++) {                   //동적 배열 size(), 정적 배열 length()
                 jsonValues.add(mJsonArrayData.getJSONObject(i));
-                System.out.println(i+""+mJsonArrayData.getJSONObject(i));
+                Log.d("CHOI", "sortJsonArrayData: "+i+" "+mJsonArrayData.getJSONObject(i));
+                System.out.println(i+" "+mJsonArrayData.getJSONObject(i));
             }
             Collections.sort(jsonValues, new Comparator<JSONObject>() {
                 private static final String KEY_NUM = "contCnt";             //JSON key 변수 선언 생성
@@ -178,12 +179,25 @@ public class PieChartImpleSec {
 
             //setUI
             mJsonArrayData.getJSONObject(0).getString("contNm");
-            graph_four_lit_title.setText(mJsonArrayData.getJSONObject(0).getString("contNm").substring(0,4));
-            graph_four_mti_title.setText(mJsonArrayData.getJSONObject(1).getString("contNm").substring(0,4));
-            graph_four_gni_title.setText(mJsonArrayData.getJSONObject(2).getString("contNm").substring(0,3));
-            graph_four_lit_number.setText(mJsonArrayData.getJSONObject(0).getString("contCnt"));
-            graph_four_mti_number.setText(mJsonArrayData.getJSONObject(1).getString("contCnt"));
-            graph_four_gni_number.setText(mJsonArrayData.getJSONObject(2).getString("contCnt"));
+            String[] contNmArr1 = mJsonArrayData.getJSONObject(0).getString("contNm").split(" ");
+            String[] contNmArr2 = mJsonArrayData.getJSONObject(1).getString("contNm").split(" ");
+            String[] contNmArr3 = mJsonArrayData.getJSONObject(2).getString("contNm").split(" ");
+
+            Log.d("CHOI", "sortJsonArrayData 11: "+mJsonArrayData.getJSONObject(0).getString("contNm"));
+            Log.d("CHOI", "sortJsonArrayData 222: "+mJsonArrayData.getJSONObject(1).getString("contNm"));
+            Log.d("CHOI", "sortJsonArrayData 3333: "+mJsonArrayData.getJSONObject(2).getString("contNm"));
+
+
+            graph_four_lit_title.setText(contNmArr1[0].trim());
+            graph_four_mti_title.setText(contNmArr2[0].trim());
+            graph_four_gni_title.setText(contNmArr3[0].trim());
+
+            //graph_four_lit_title.setText(mJsonArrayData.getJSONObject(0).getString("contNm").substring(0,4));
+            //graph_four_mti_title.setText(mJsonArrayData.getJSONObject(1).getString("contNm").substring(0,4));
+            //graph_four_gni_title.setText(mJsonArrayData.getJSONObject(2).getString("contNm").substring(0,3));
+            graph_four_lit_number.setText(mJsonArrayData.getJSONObject(0).getString("contCnt")+" 건");
+            graph_four_mti_number.setText(mJsonArrayData.getJSONObject(1).getString("contCnt")+" 건");
+            graph_four_gni_number.setText(mJsonArrayData.getJSONObject(2).getString("contCnt")+" 건");
         }catch (JSONException e) {
             e.printStackTrace();
         }

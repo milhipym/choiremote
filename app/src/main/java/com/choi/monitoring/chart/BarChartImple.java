@@ -104,20 +104,25 @@ public class BarChartImple extends ChoiMainStageActivity {
                 Log.d("YYYM", "uptDt: "+jsonObject.getString("uptDt"));
                 String date = jsonObject.getString("uptDt");
                 String data = jsonObject.getString("uptCnt");
+                if(data.length() > 4){
+                    data = data.replaceAll(",", "");
+                }
                 Float dateF = Float.valueOf(date.substring(6,8));
                 Float dataF = Float.valueOf(data);
                 entries.add(new BarEntry(dateF, dataF));
             }
-        }catch (JSONException e) {
+        }catch (JSONException | NumberFormatException e) {
+            Log.d("CHOI", "setBarEntry: Exception 발생!!!!");
             e.printStackTrace();
         }
 
-
+        Log.d("CHOI", "setBarEntry: 여기여기1111!!!!");
         String title = "본인인증 완료건수";
         barDataSet = new BarDataSet(entries, title);
         barDataSet.setColor(Color.parseColor("#9370DB"));
         barDataSet.setDrawIcons(false);
         barDataSet.setDrawValues(true);
+        Log.d("CHOI", "setBarEntry: 여기여기2222!!!!");
         //데이터값 스트링 변경
 
         setSyncDataAndGraph();
@@ -127,6 +132,7 @@ public class BarChartImple extends ChoiMainStageActivity {
     * */
     public void setSyncDataAndGraph()
     {
+        Log.d("CHOI", "setSyncDataAndGraph: 인입!!!!!");
         BarData barData = new BarData(barDataSet);
         barData.setBarWidth(0.5f);
         barData.setValueTextSize(5);

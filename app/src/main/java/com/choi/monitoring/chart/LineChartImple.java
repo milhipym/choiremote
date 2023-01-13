@@ -136,7 +136,7 @@ public class LineChartImple {
         }catch (JSONException e) {
             e.printStackTrace();
         }
-        graph_two_number.setText(maxCnt);
+        graph_two_number.setText(maxCnt+"건");
         graph_two_number_time.setText(maxTime+"시");
         //updateUI(maxCnt, maxTime);
 

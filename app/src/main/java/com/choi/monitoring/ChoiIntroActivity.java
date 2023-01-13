@@ -32,7 +32,7 @@ public class ChoiIntroActivity extends AppCompatActivity {
             }
 
         };
-        handle.sendEmptyMessageDelayed(0, 15000);
+        handle.sendEmptyMessageDelayed(0, 0);
     }
 
 

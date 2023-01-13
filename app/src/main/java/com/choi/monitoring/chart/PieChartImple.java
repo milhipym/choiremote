@@ -127,9 +127,8 @@ public class PieChartImple {
         int failCntB = Integer.parseInt(completeCnt);
         int failCntInt = failCntA - failCntB;
         Log.d("YYYM", "failCntInt: "+failCntInt);
-        failCnt = Integer.toString(failCntInt);
-
-        graph_three_number.setText(failCnt);
+        failCnt = Integer.toString(Math.abs(failCntInt));
+        graph_three_number.setText(failCnt+"건");
         graph_two_three_fail_ecs.setText("완료건 "+Integer.toString(failCntB)+"건");
         graph_two_three_fail_edms.setText("요청건 "+Integer.toString(failCntA)+"건");
 

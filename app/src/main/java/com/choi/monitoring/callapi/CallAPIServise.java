@@ -2,6 +2,7 @@ package com.choi.monitoring.callapi;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.choi.monitoring.ChoiIntroActivity;
 import com.choi.monitoring.ChoiMainStageActivity;
@@ -28,7 +29,8 @@ public class CallAPIServise {
     public Retrofit retrofit;
     public ChoiMainStageActivity mActivity;
 
-    static String HOST = "http://10.88.22.88:8300";
+    static boolean REAL = true;
+    static String HOST = REAL ? "https://d.directdb.co.kr" : "http://10.88.22.88:8300";
     static String URL  = "/mobile/monitoring/";
     static String FULLURL = HOST+URL;
     static String SERVICENAME = "cusAgree";
@@ -94,43 +96,55 @@ public class CallAPIServise {
         JSONArray dataListArray = new JSONArray();
         JSONArray dataSubArray = new JSONArray();
         try {
-            String reponseData = rd.string();
-            JSONObject jsonObject_ = new JSONObject(reponseData);
-            //#1. 결과result...
-            JSONObject jsonObjectRe = jsonObject_.getJSONObject("result");
-            Log.d("YYYM", "resultNm: "+jsonObjectRe.getString("resultNm"));
-            Log.d("YYYM", "resultNm: "+jsonObjectRe.getString("resultCd"));
+            if(rd!=null){
+                String reponseData = rd.string();
+                JSONObject jsonObject_ = new JSONObject(reponseData);
+                //#1. 결과result...
+                JSONObject jsonObjectRe = jsonObject_.getJSONObject("result");
+                Log.d("YYYM", "resultNm: " + jsonObjectRe.getString("resultNm"));
+                Log.d("YYYM", "resultNm: " + jsonObjectRe.getString("resultCd"));
 
-            //#2. 데이타추출
-            JSONObject resultObjData = jsonObject_.getJSONObject("data");
-            String chartLocation = resultObjData.getString("chartLocation");
-            Log.d("YYYM", "resultObjDataLocation: " + chartLocation);
+                //#2. 데이타추출
+                JSONObject resultObjData = jsonObject_.getJSONObject("data");
+                String chartLocation = resultObjData.getString("chartLocation");
+                Log.d("YYYM", "resultObjDataLocation: " + chartLocation);
 
-            dataListArray = resultObjData.getJSONArray("dataList");
+                dataListArray = resultObjData.getJSONArray("dataList");
 
-            //#3.추출키 셋 및 다음 쿼리진행
-            if (chartLocation.equals("FIRST"))
-            { param_1 = "uptCnt"; param_2="uptDt"; callApi(retrofit, SECOND);
-                mActivity.ResponseGetData(chartLocation, dataListArray, dataSubArray);}
-            else if (chartLocation.equals("SECOND"))
-            { param_1 = "uptTM"; param_2="uptCnt"; callApi(retrofit, THIRD);
-                mActivity.ResponseGetData(chartLocation, dataListArray, dataSubArray);}
-            else if (chartLocation.equals("THIRD"))
-            { param_1 = "strCnt"; param_2="strNm"; callApi(retrofit, FOURTH);
-                mActivity.ResponseGetData(chartLocation, dataListArray, dataSubArray);}
-            else if (chartLocation.equals("FOURTH"))
-            { param_1 = "countCnt"; param_2="contNm"; callApi(retrofit, FIFTH);
-                dataSubArray = resultObjData.getJSONArray("top3Data");
-            mActivity.ResponseGetData(chartLocation, dataListArray, dataSubArray);}
-            else if (chartLocation.equals("FIFTH"))
-            { param_1 = "drvCnt"; param_2="drvNm"; mActivity.ResponseGetData(chartLocation, dataListArray, dataSubArray);}
+                //#3.추출키 셋 및 다음 쿼리진행
+                if (chartLocation.equals("FIRST")) {
+                    param_1 = "uptCnt";
+                    param_2 = "uptDt";
+                    callApi(retrofit, SECOND);
+                    mActivity.ResponseGetData(chartLocation, dataListArray, dataSubArray);
+                } else if (chartLocation.equals("SECOND")) {
+                    param_1 = "uptTM";
+                    param_2 = "uptCnt";
+                    callApi(retrofit, THIRD);
+                    mActivity.ResponseGetData(chartLocation, dataListArray, dataSubArray);
+                } else if (chartLocation.equals("THIRD")) {
+                    param_1 = "strCnt";
+                    param_2 = "strNm";
+                    callApi(retrofit, FOURTH);
+                    mActivity.ResponseGetData(chartLocation, dataListArray, dataSubArray);
+                } else if (chartLocation.equals("FOURTH")) {
+                    param_1 = "contCnt";
+                    param_2 = "contNm";
+                    callApi(retrofit, FIFTH);
+                    dataSubArray = resultObjData.getJSONArray("top3Data");
+                    mActivity.ResponseGetData(chartLocation, dataListArray, dataSubArray);
+                } else if (chartLocation.equals("FIFTH")) {
+                    param_1 = "drvCnt";
+                    param_2 = "drvNm";
+                    mActivity.ResponseGetData(chartLocation, dataListArray, dataSubArray);
+                }
 
 /*            for (int i=0; i<dataListArray.length()-1; i++){
                 JSONObject jsonObject = dataListArray.getJSONObject(i);
                 Log.d("YYYM", "param_1: "+jsonObject.getString(param_1));
                 Log.d("YYYM", "param_2: "+jsonObject.getString(param_2));
             }*/
-
+            }
         } catch (JSONException | IOException e) {
             e.printStackTrace();
         }
